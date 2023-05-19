@@ -12,30 +12,24 @@ import java.util.Optional;
 
 @RestController
 public class ContactController {
-    @Autowired
-    ContactRepository contactRepository;
+
+    private final ContactRepository contactRepository;
+
+    public ContactController(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
 
     @PostMapping("/contact/new")
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
+        //Contact Name should be present.
+        if(contact.getContactName().isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
         try {
             var createdContact = contactRepository.save(contact);
             return new ResponseEntity<>(createdContact, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("/contact/update/{id}")
-    public ResponseEntity<Contact> updateContact(@PathVariable("id") int id, @RequestBody Contact contact) {
-        Optional<Contact> contactEntry = contactRepository.findById(id);
-        if(contactEntry.isPresent()) {
-            Contact existing = contactEntry.get();
-            existing.setContactName(contact.getContactName());
-            existing.setNotes(contact.getNotes());
-            return new ResponseEntity<>(contactRepository.save(existing), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

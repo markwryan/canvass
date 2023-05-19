@@ -5,7 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ContactRepository extends JpaRepository<Contact, Integer> {
-    List<Contact> findByContactName(String contactName);
-
-}
+public interface ContactRepository extends JpaRepository<Contact, Integer> { }
