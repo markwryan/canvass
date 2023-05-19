@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+# MariaDB Database. Initialize DB with SQL from ./database/init
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d
