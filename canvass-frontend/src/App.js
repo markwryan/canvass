@@ -1,17 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
-import {Component} from "react";
-import {Route} from "react-router";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ContactList from './ContactList';
+import ContactCreate from './ContactCreate';
+
+import React, {Component} from "react";
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 
 class App extends Component {
+
   render() {
     return(
         <Router>
-          <Switch>
-            <Route path='/' exact={true} component={Home} />
-            <Route path='/all' exact={true} component={ContactList} />
-            <Route path='/create' exact={true} component={ContactCreate} />
-          </Switch>
+          <Routes>
+              <Route path='/' element={<ContactCreate />} />
+              <Route path='/all' element={<ContactList />} />
+          </Routes>
         </Router>
     )
   }
