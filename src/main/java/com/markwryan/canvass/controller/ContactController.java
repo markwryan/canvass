@@ -22,7 +22,7 @@ public class ContactController {
     @PostMapping("/contact/new")
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
         //Contact Name should be present.
-        if(contact.getContactName().isEmpty()){
+        if(contact.getContactName() == null || contact.getContactName().isEmpty()){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         try {
