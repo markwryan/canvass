@@ -1,15 +1,17 @@
-FROM node:latest AS build
-WORKDIR /build
-
-COPY package.json package.json
-COPY package-lock.json package-lock.json
-COPY tsconfig.json tsconfig.json
-RUN npm ci
-
-COPY public/ public
-COPY src/ src
+# build environment
+FROM node:latest as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+COPY tsconfig.json ./t
+COPY . ./
 RUN npm run build
 
-FROM alpine:latest
-WORKDIR /var/www/html
-COPY --from=build /build/build/ .
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+
