@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {
-    createBrowserRouter, Link, Outlet,
+    createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
 import CreateContact from "./CreateContact";
@@ -16,10 +16,16 @@ const router = createBrowserRouter([
         path: "/all",
         element: <ContactList />,
     },
-])
+]);
+
+
 
 function App() {
-  return (
+
+    useEffect(() => {
+        document.title = 'Canvass Application';
+    }, []);
+    return (
       <React.StrictMode>
           <div className="container">
               <div className="section">
@@ -27,7 +33,7 @@ function App() {
               </div>
           </div>
       </React.StrictMode>
-  );
+    );
 }
 
 export default App;
