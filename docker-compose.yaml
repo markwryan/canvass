@@ -1,7 +1,15 @@
 version: '3.1'
 
 services:
-# MariaDB Database. Initialize DB with SQL from ./database/init
+  frontend:
+    image: markwryan/canvass-frontend:latest
+  backend:
+    image: markwryan/canvass:latest
+    restart: unless-stopped
+    ports:
+      - "8088:8080"
+    depends_on:
+      - db
   db:
     image: mariadb
     restart: always

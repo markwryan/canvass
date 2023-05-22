@@ -1,3 +1,13 @@
+# Canvass Frontend
+
+The application is a React app written in Typescript. It has two pages, the "create" page which is used to create new contacts,
+as well as a "View All" page to view all of the entered contacts. 
+
+The application uses `react-router-dom` for its routing, and `minicss` for styling.
+
+---
+# Auto-generated README.md below
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
